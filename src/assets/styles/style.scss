@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600');
+@import 'mixins';
+
+$mainColor: #73ffbe;
+$secondColor: rgba(112, 128, 144, 0.479);
+
+#app {
+    font-family: 'Montserrat', sans-serif;
+    @include scrollbars(.2em, $secondColor);
+}
+
+// JS class
+.active {
+    color: $mainColor;
+
+    &:hover {
+        color: white;
+        background-color: mix($mainColor, white, 70%) !important;
+    }
+}
+
+// JS class
+.up {
+    transform: rotate(90deg);
+}
+
+.more-info {
+    position: absolute;
+    width: 70vw;
+    height: 20vh;
+    padding: 20px;
+    top: 80vh;
+    left: 50%;
+    @include box-shadow(0px, -2px, 15px, rgba(0, 0, 0, 0.034));
+
+    transform: translate(-50%, -25%);
+    background-color: white;
+
+    .close-btn {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        top: 10%;
+        left: 92%;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color .1s ease-in-out, color .1s ease-in-out;
+
+        &:hover {
+            background-color: mix($mainColor, white, 70%);
+            color: white;
+        }
+    }
+
+    .avatar {
+        font-size: 24px;
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+    .full-name {
+        flex-grow: 1;
+        font-size: 22px !important;
+    }
+
+    .rating, .age, .uid {
+        font-size: 20px !important;
+
+        .article {
+            font-size: 12px !important;
+        }
+    }
+}
+
+.rating-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1024px;
+    margin: 0 auto;
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .search {
+        margin: 20px;
+        
+        i {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            font-size: 20px
+
+            
+        }
+
+        @include placeholder {
+            font-weight: 300;
+            color: rgb(0, 0, 0);
+            font-weight:100;
+        }
+    }
+
+    .controls {
+        button {
+            border: none;
+            padding: 13px 15px;
+            margin: 0 10px;
+            background-color: rgba(255, 255, 255, 0);
+            text-transform: uppercase;
+            border-radius: 1px;
+            outline: none;
+            cursor: pointer;
+            transition: background-color .174s ease-in-out, color .174s ease-in-out;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.13);
+            }
+        }
+    }
+
+    ul {
+        max-height: 60vh;
+        padding: 0 0 20px 20px;
+        overflow: auto;
+
+        li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 8px;
+            cursor: pointer;
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+            transition: background-color .174s ease-in-out;
+
+            &:hover {
+                background-color: mix($secondColor, white,  50%);
+            }
+            
+        }
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        background-color: $mainColor;
+        border-radius: 50%;
+        font-weight: 600;
+        color: white;
+    }
+
+    .full-name {
+        font-weight: 600;
+        font-size: 14px;
+        flex-basis: 25%;
+
+    }
+
+    .rating, .age, .uid {
+        flex-direction: column;
+        font-weight: 600;
+        font-size: 14px;
+        flex-basis: 25%;
+
+
+        .article {
+            font-size: 10px;
+            color: grey;
+            text-transform: uppercase;
+        }
+    }
+}
+
+//transitions 
+.slide-enter-active {
+    transition: all .1s ease-in-out;
+  }
+  .slide-leave-active {
+    transition: all .1s ease-in-out;
+  }
+  .slide-enter, .slide-leave-to
+  /* .slide-fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+  }

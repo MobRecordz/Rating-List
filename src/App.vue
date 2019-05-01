@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <rating-list 
+    title='Рейтинг участников'
+    :array='getUsersList'>
+
+    </rating-list>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ratingList from './components/rating-list.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    ratingList
+  },
+  
+  computed: {
+    getUsersList() {
+      return this.$store.getters.getUsersList
+    }
+  },
+  created() {
+    this.$store.dispatch('fakeRequest');
   }
 }
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  // font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  // margin-top: 60px;
 }
 </style>
