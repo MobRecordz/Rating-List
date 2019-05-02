@@ -1,11 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,600');
+@import 'variables';
+@import 'transitions';
+@import 'loading.spinner';
 @import 'mixins';
 
-$mainColor: #73ffbe;
-$secondColor: rgba(112, 128, 144, 0.479);
+body {
+    overflow: hidden;
+}
 
 #app {
     font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
     @include scrollbars(.2em, $secondColor);
 }
 
@@ -14,26 +21,19 @@ $secondColor: rgba(112, 128, 144, 0.479);
     color: $mainColor;
 
     &:hover {
-        color: white;
+        color: white !important;
         background-color: mix($mainColor, white, 70%) !important;
     }
 }
 
-// JS class
-.up {
-    transform: rotate(90deg);
-}
-
 .more-info {
     position: absolute;
-    width: 70vw;
+    width: 1024px;
     height: 20vh;
     padding: 20px;
-    top: 80vh;
-    left: 50%;
-    @include box-shadow(0px, -2px, 15px, rgba(0, 0, 0, 0.034));
+    top: 75vh;
 
-    transform: translate(-50%, -25%);
+    @include box-shadow(0px, -2px, 15px, rgba(0, 0, 0, 0.034));
     background-color: white;
 
     .close-btn {
@@ -103,7 +103,7 @@ $secondColor: rgba(112, 128, 144, 0.479);
         }
 
         @include placeholder {
-            font-weight: 300;
+            font-weight: 100;
             color: rgb(0, 0, 0);
             font-weight:100;
         }
@@ -145,6 +145,7 @@ $secondColor: rgba(112, 128, 144, 0.479);
 
             &:hover {
                 background-color: mix($secondColor, white,  50%);
+                
             }
             
         }
@@ -194,15 +195,3 @@ $secondColor: rgba(112, 128, 144, 0.479);
         }
     }
 }
-
-//transitions 
-.slide-enter-active {
-    transition: all .1s ease-in-out;
-  }
-  .slide-leave-active {
-    transition: all .1s ease-in-out;
-  }
-  .slide-enter, .slide-leave-to
-  /* .slide-fade-leave-active до версии 2.1.8 */ {
-    opacity: 0;
-  }

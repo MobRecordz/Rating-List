@@ -63,7 +63,7 @@
       </li>
     </ul>
 
-    <transition name='slide' mode='out-in'> 
+    <transition name='slide'> 
       <div class="more-info" v-if='someItemIsActive'>
         <div class="close-btn" @click='someItemIsActive = false'><i class="icofont-close"></i></div>
 
@@ -176,9 +176,6 @@ export default {
 
       this.activeItem = item;
     }
-  },
-  created() {
-    console.log(this.sortedArray[0].name + this.sortedArray[0].secondName )
   }
 }
 </script>

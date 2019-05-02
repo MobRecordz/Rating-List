@@ -1,12 +1,30 @@
 <template>
   <div id="app">
+    <transition name='fade' mode='out-in' appear>
+      <rating-list 
+      v-if='getStatus === "default"'
+      title='Рейтинг участников'
+      :array='getUsersList'>
+      </rating-list>
 
-    <rating-list 
-    title='Рейтинг участников'
-    :array='getUsersList'>
 
-    </rating-list>
+      <div 
+      class="loading-container" 
+      v-else-if='getStatus === "loading"'>
 
+        <div>
+          <div class="status">{{getStatus | upperCase}} </div>
+          <div class="spinner">
+            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="2" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </div> 
+        </div>
+
+      </div>
+        
+
+    </transition>
   </div>
 </template>
 
@@ -22,6 +40,14 @@ export default {
   computed: {
     getUsersList() {
       return this.$store.getters.getUsersList
+    },
+    getStatus() {
+      return this.$store.getters.getStatus
+    }
+  },
+  filters: {
+    upperCase(value) {
+      return value.toUpperCase();
     }
   },
   created() {
@@ -30,13 +56,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#app {
-  // font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  // margin-top: 60px;
-}
-</style>
