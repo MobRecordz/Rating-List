@@ -15,12 +15,22 @@ export default new Vuex.Store({
   },
   mutations: {
     [UPDATE_USERS_LIST] (state, data) {
-      Vue.set(state, 'usersList', [...data.users]);
+      Vue.set(state, 'usersList', [...data]);
     }
   },
   actions: {
     fakeRequest({ commit }) {
-      commit(UPDATE_USERS_LIST, users);
+      
+      // Перебор и сортировка массива, для расчёта места в рейтинге.
+      let parsedArr = users.users.slice().sort((a, b) => {
+          return b.rating - a.rating
+      });
+
+      parsedArr.forEach((item, index) => {
+        item.place = ++index;
+      });
+
+      commit(UPDATE_USERS_LIST, parsedArr);
     }
   },
   getters: {

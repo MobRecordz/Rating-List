@@ -64,7 +64,7 @@ $secondColor: rgba(112, 128, 144, 0.479);
         font-size: 22px !important;
     }
 
-    .rating, .age, .uid {
+    .place, .rating, .age, .uid {
         font-size: 20px !important;
 
         .article {
@@ -112,7 +112,7 @@ $secondColor: rgba(112, 128, 144, 0.479);
     .controls {
         button {
             border: none;
-            padding: 13px 15px;
+            padding: 13px 25px;
             margin: 0 10px;
             background-color: rgba(255, 255, 255, 0);
             text-transform: uppercase;
@@ -136,7 +136,7 @@ $secondColor: rgba(112, 128, 144, 0.479);
             list-style: none;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             padding: 8px;
             cursor: pointer;
             border-top-left-radius: 2px;
@@ -151,27 +151,41 @@ $secondColor: rgba(112, 128, 144, 0.479);
     }
 
     .avatar {
-        width: 50px;
-        height: 50px;
+        width: 60px;
+        height: 60px;
         background-color: $mainColor;
+        box-sizing: border-box;
         border-radius: 50%;
         font-weight: 600;
+        // flex-basis: 20%;
+        position: relative;
         color: white;
     }
 
-    .full-name {
-        font-weight: 600;
-        font-size: 14px;
-        flex-basis: 25%;
-
+    .firstPlace {
+        @include box-shadow(0px, 0px, 10px, rgba(255, 238, 0, 0.808));
+    }
+    .secondPlace {
+        @include box-shadow(0px, 0px, 10px, rgba(110, 110, 110, 0.808));
+    }
+    .thirdPlace {
+        @include box-shadow(0px, 0px, 10px, rgba(255, 136, 0, 0.808));
     }
 
-    .rating, .age, .uid {
-        flex-direction: column;
+    .full-name, .rating, .age, .uid {
         font-weight: 600;
         font-size: 14px;
-        flex-basis: 25%;
+        flex-basis: 20%;
+    }
 
+    .place {
+        font-weight: 600;
+        font-size: 14px;
+        flex-basis: 10%;
+    }
+
+    .place, .rating, .age, .uid {
+        flex-direction: column;
 
         .article {
             font-size: 10px;

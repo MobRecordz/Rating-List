@@ -33,7 +33,14 @@
       <li v-for='(item, index) in sortedArray' :key='index'
           @click='setActiveItem(item)' >
 
-        <div class="avatar">
+        <div class="place">
+          <div class="amount">{{item.place}} </div>
+        </div>
+
+        <div class="avatar" 
+          :class='{firstPlace: item.place === 1,
+                  secondPlace: item.place === 2,
+                   thirdPlace: item.place === 3}'>
           {{ getFullNameChars(item) }}
         </div>
 
@@ -60,7 +67,15 @@
       <div class="more-info" v-if='someItemIsActive'>
         <div class="close-btn" @click='someItemIsActive = false'><i class="icofont-close"></i></div>
 
-        <div class="avatar">
+        <div class="place">
+          <div class="amount">{{activeItem.place}} </div>
+          <div class="article">place</div>
+        </div>
+
+        <div class="avatar" 
+          :class='{firstPlace: activeItem.place === 1,
+                  secondPlace: activeItem.place === 2,
+                   thirdPlace: activeItem.place === 3}'>
           {{ getFullNameChars(activeItem) }}
         </div>
 
@@ -116,7 +131,7 @@ export default {
       // Сортировка по рейтингу или возрасту
       } else {
         let direction = this.sortBy.direction,
-          by = this.sortBy.by;
+            by = this.sortBy.by;
 
           return this.array.slice().sort((a, b) => {
             if(direction) 
