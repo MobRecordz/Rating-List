@@ -227,6 +227,8 @@ body {
         
             @include for-desktop {
                 padding: 13px 25px;
+                width: 15%;
+                font-size: 16px;
             }
 
             &:hover {
