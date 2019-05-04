@@ -1,5 +1,8 @@
 # rating-list
 
+## Demo
+https://rating-list-592e9.firebaseapp.com/
+
 ## Project setup
 ```
 npm install
