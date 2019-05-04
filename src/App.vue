@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <transition name='fade' mode='out-in' appear>
+      
       <rating-list 
       v-if='getStatus === "default"'
       title='Рейтинг участников'

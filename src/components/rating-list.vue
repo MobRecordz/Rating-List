@@ -29,6 +29,8 @@
       </button>
     </div>
 
+    
+
     <ul>
       <li v-for='(item, index) in sortedArray' :key='index'
           @click='setActiveItem(item)' >
@@ -37,11 +39,13 @@
           <div class="amount">{{item.place}} </div>
         </div>
 
-        <div class="avatar" 
-          :class='{firstPlace: item.place === 1,
-                  secondPlace: item.place === 2,
-                   thirdPlace: item.place === 3}'>
-          {{ getFullNameChars(item) }}
+        <div class="avatar-container">
+          <div class="avatar" 
+            :class='{firstPlace: item.place === 1,
+                    secondPlace: item.place === 2,
+                    thirdPlace: item.place === 3}'>
+            {{ getFullNameChars(item) }}
+          </div>
         </div>
 
         <div class="full-name">{{item.name}} {{item.secondName}}</div>
@@ -65,19 +69,21 @@
 
     <transition name='slide'> 
       <div class="more-info" v-if='someItemIsActive'>
-        <div class="close-btn" @click='someItemIsActive = false'><i class="icofont-close"></i></div>
 
         <div class="place">
           <div class="amount">{{activeItem.place}} </div>
           <div class="article">place</div>
         </div>
 
-        <div class="avatar" 
-          :class='{firstPlace: activeItem.place === 1,
-                  secondPlace: activeItem.place === 2,
-                   thirdPlace: activeItem.place === 3}'>
-          {{ getFullNameChars(activeItem) }}
+        <div class="avatar-container">
+          <div class="avatar" 
+            :class='{firstPlace: activeItem.place === 1,
+                    secondPlace: activeItem.place === 2,
+                    thirdPlace: activeItem.place === 3}'>
+            {{ getFullNameChars(activeItem) }}
+          </div>
         </div>
+       
 
         <div class="full-name">{{activeItem.name}} {{activeItem.secondName}}</div>
 
@@ -95,6 +101,8 @@
           <div class="amount">{{activeItem.rating}} </div>
           <div class="article">rating</div>
         </div>
+        
+        <div class="close-btn" @click='someItemIsActive = false'><i class="icofont-close"></i></div>
       </div>
     </transition>
     
@@ -175,7 +183,7 @@ export default {
         this.someItemIsActive = true;
 
       this.activeItem = item;
-    }
+    },
   }
 }
 </script>

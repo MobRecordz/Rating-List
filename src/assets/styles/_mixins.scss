@@ -35,4 +35,15 @@
       -moz-box-shadow: $top $left $blur $color;
       box-shadow: $top $left $blur $color;
     }
-  }
+}
+
+
+@mixin for-phone {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-desktop {
+  @media (min-width: 1800px) { @content; }
+}

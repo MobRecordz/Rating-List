@@ -28,10 +28,22 @@ body {
 
 .more-info {
     position: absolute;
-    width: 1024px;
     height: 20vh;
     padding: 20px;
-    top: 75vh;
+    top: 80vh;
+    box-sizing: border-box;
+
+    @include for-tablet {
+        width: 99vw,
+    }
+
+    @include for-phone {
+        width: 99vw,
+    }
+
+    @include for-desktop {
+        width: 1024px;
+    }
 
     @include box-shadow(0px, -2px, 15px, rgba(0, 0, 0, 0.034));
     background-color: white;
@@ -42,10 +54,22 @@ body {
         height: 40px;
         font-size: 24px;
         top: 10%;
-        left: 92%;
+        
         border-radius: 3px;
         cursor: pointer;
         transition: background-color .1s ease-in-out, color .1s ease-in-out;
+
+        @include for-tablet {
+            left: 86%;
+        }
+    
+        @include for-phone {
+            left: 86%;
+        }
+    
+        @include for-desktop {
+            left: 92%;
+        }
 
         &:hover {
             background-color: mix($mainColor, white, 70%);
@@ -53,22 +77,79 @@ body {
         }
     }
 
-    .avatar {
-        font-size: 24px;
-        width: 70px !important;
-        height: 70px !important;
+    .avatar-container {
+        @include for-tablet {
+            margin: 0 25px;
+        }
+    
+        @include for-phone {
+            margin: 0 25px;
+        }
+        .avatar {
+            font-size: 24px;
+
+            @include for-tablet {
+                width: 60px!important;
+                height: 60px!important;
+            }
+        
+            @include for-phone {
+                width: 60px!important;
+                height: 60px!important;
+            }
+        
+            @include for-desktop {
+                width: 70px !important;
+                height: 70px !important;
+            }
+        }
     }
+
 
     .full-name {
         flex-grow: 1;
-        font-size: 22px !important;
+        // font-size: 22px !important;
+
+        @include for-tablet {
+            font-size: 16px !important;
+        }
+    
+        @include for-phone {
+            font-size: 16px !important;
+        }
+    
+        @include for-desktop {
+            font-size:22px !important;
+        }
     }
 
     .place, .rating, .age, .uid {
-        font-size: 20px !important;
+
+        @include for-tablet {
+            font-size: 16px !important;
+        }
+    
+        @include for-phone {
+            font-size: 16px !important;
+        }
+    
+        @include for-desktop {
+            font-size: 20px !important;
+        }
 
         .article {
-            font-size: 12px !important;
+
+            @include for-tablet {
+                font-size: 10px !important;
+            }
+        
+            @include for-phone {
+                font-size: 10px !important;
+            }
+        
+            @include for-desktop {
+                font-size: 12px !important;
+            }
         }
     }
 }
@@ -76,9 +157,20 @@ body {
 .rating-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 1024px;
+    height: 100vh;
     margin: 0 auto;
+
+    @include for-tablet {
+        width: 99vw,
+    }
+
+    @include for-phone {
+        width: 99vw,
+    }
+
+    @include for-desktop {
+        width: 1024px;
+    }
 
     div {
         display: flex;
@@ -112,7 +204,7 @@ body {
     .controls {
         button {
             border: none;
-            padding: 13px 25px;
+            // padding: 13px 25px;
             margin: 0 10px;
             background-color: rgba(255, 255, 255, 0);
             text-transform: uppercase;
@@ -121,6 +213,22 @@ body {
             cursor: pointer;
             transition: background-color .174s ease-in-out, color .174s ease-in-out;
 
+            @include for-tablet {
+                width: 100%;
+                padding: 13px 15px;
+                font-size: 16px;
+            }
+        
+            @include for-phone {
+                width: 100%;
+                padding: 13px 15px;
+                font-size: 16px;
+            }
+        
+            @include for-desktop {
+                padding: 13px 25px;
+            }
+
             &:hover {
                 background-color: rgba(0, 0, 0, 0.13);
             }
@@ -128,8 +236,8 @@ body {
     }
 
     ul {
-        max-height: 60vh;
-        padding: 0 0 20px 20px;
+        max-height: 70vh;
+        padding: 0 !important;
         overflow: auto;
 
         li {
@@ -151,16 +259,34 @@ body {
         }
     }
 
-    .avatar {
-        width: 60px;
-        height: 60px;
-        background-color: $mainColor;
-        box-sizing: border-box;
-        border-radius: 50%;
-        font-weight: 600;
-        // flex-basis: 20%;
-        position: relative;
-        color: white;
+    .avatar-container {
+        flex-basis: 10%;
+
+        .avatar {
+            background-color: $mainColor;
+            box-sizing: border-box;
+            border-radius: 50%;
+            font-weight: 600;
+            // flex-basis: 20%;
+            position: relative;
+            color: white;
+
+            
+            @include for-tablet {
+                width: 50px;
+                height: 50px;
+            }
+        
+            @include for-phone {
+                width: 50px;
+                height: 50px;
+            }
+        
+            @include for-desktop {
+                width: 60px;
+                height: 60px;
+            }
+        }
     }
 
     .firstPlace {
@@ -176,7 +302,7 @@ body {
     .full-name, .rating, .age, .uid {
         font-weight: 600;
         font-size: 14px;
-        flex-basis: 20%;
+        flex-basis: 30%;
     }
 
     .place {
@@ -188,10 +314,27 @@ body {
     .place, .rating, .age, .uid {
         flex-direction: column;
 
+
         .article {
             font-size: 10px;
             color: grey;
             text-transform: uppercase;
         }
     }
+
+    .age, .uid {
+        @include for-tablet {
+            display: none;
+        }
+    
+        @include for-phone {
+            display: none;
+        }
+    
+        @include for-desktop {
+            display: flex;
+        }
+    }
 }
+
+
