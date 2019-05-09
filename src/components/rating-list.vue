@@ -15,14 +15,14 @@
       </button>
 
       <button 
-        @click = 'toSortBy("id", $event.target)'>
+        @click = 'toSortBy("id", $event.currentTarget)'>
         <i class="icofont-long-arrow-down" v-show="sortingData.direction && sortingData.by === 'id'"></i>
         <i class="icofont-long-arrow-up" v-show="!sortingData.direction && sortingData.by === 'id'"></i>
         id
       </button>
 
       <button 
-        @click = 'toSortBy("rating", $event.target)'>
+        @click = 'toSortBy("rating", $event.currentTarget)'>
         <i class="icofont-long-arrow-down" v-show="sortingData.direction && sortingData.by === 'rating'"></i>
         <i class="icofont-long-arrow-up" v-show="!sortingData.direction && sortingData.by === 'rating'"></i>
         Rating
