@@ -3,36 +3,34 @@
     <h2>{{title}}</h2>
     <div class="search">
       <i class="icofont-search"></i>
-      <input type="text" v-model='inputFind' placeholder="Find..."> 
+      <input type="text" v-model='searchInput' placeholder="Find..."> 
     </div>
 
-    <div class="controls">
+    <div class="controls" ref='controls'>
       <button 
-        @click = 'toSortBy("age")'>
-        <i class="icofont-long-arrow-down" v-show="sortBy.direction && sortBy.by === 'age'"></i>
-        <i class="icofont-long-arrow-up" v-show="!sortBy.direction && sortBy.by === 'age'"></i>
+        @click = 'toSortBy("age", $event.currentTarget)'>
+        <i class="icofont-long-arrow-down" v-show="sortingData.direction && sortingData.by === 'age'"></i>
+        <i class="icofont-long-arrow-up" v-show="!sortingData.direction && sortingData.by === 'age'"></i>
         Age
       </button>
 
       <button 
-        @click = 'toSortBy("id")'>
-        <i class="icofont-long-arrow-down" v-show="sortBy.direction && sortBy.by === 'id'"></i>
-        <i class="icofont-long-arrow-up" v-show="!sortBy.direction && sortBy.by === 'id'"></i>
+        @click = 'toSortBy("id", $event.target)'>
+        <i class="icofont-long-arrow-down" v-show="sortingData.direction && sortingData.by === 'id'"></i>
+        <i class="icofont-long-arrow-up" v-show="!sortingData.direction && sortingData.by === 'id'"></i>
         id
       </button>
 
       <button 
-        @click = 'toSortBy("rating")'>
-        <i class="icofont-long-arrow-down" v-show="sortBy.direction && sortBy.by === 'rating'"></i>
-        <i class="icofont-long-arrow-up" v-show="!sortBy.direction && sortBy.by === 'rating'"></i>
+        @click = 'toSortBy("rating", $event.target)'>
+        <i class="icofont-long-arrow-down" v-show="sortingData.direction && sortingData.by === 'rating'"></i>
+        <i class="icofont-long-arrow-up" v-show="!sortingData.direction && sortingData.by === 'rating'"></i>
         Rating
       </button>
     </div>
 
-    
-
     <ul>
-      <li v-for='(item, index) in sortedArray' :key='index'
+      <li v-for='(item, index) in getSortedArray' :key='index'
           @click='setActiveItem(item)' >
 
         <div class="place">
@@ -111,64 +109,57 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'ratingList',
   props: {
-    title: String,
-    array: Array
+    title: {
+      type: String,
+      default: 'Рейтинг'
+    },
   },
   data() {
     return {
       someItemIsActive: false,
       activeItem: {},
-      sortBy: {
+      sortingData: {
         by: '',
         direction: true // true - up, false - down
       },
-      inputFind: ''
+      searchInput: ''
     }
   },
   computed: {
-    sortedArray() {
-      // Поиск по имени или фамилии
-      if(this.inputFind.length > 0) {
-        return this.array.filter((item) => {
-          let fullName = item.name + item.secondName;
-          return fullName.toLowerCase().includes(this.inputFind);
-        })
-      // Сортировка по рейтингу или возрасту
-      } else {
-        let direction = this.sortBy.direction,
-            by = this.sortBy.by;
-
-          return this.array.slice().sort((a, b) => {
-            if(direction) 
-              return a[by] - b[by]
-            else
-              return b[by] - a[by]
-          })
-      }
+    ...mapGetters(['getSortedArray']),
+  },
+  watch: {
+    searchInput(value) {
+      this.CHANGE_SEARCH_INPUT(value);
     }
   },
   methods: {
-    toSortBy(by) {
-      this.sortBy.by = by;
-      this.sortBy.direction = !this.sortBy.direction;
+    ...mapMutations(['CHANGE_SORTING_DATA', 'CHANGE_SEARCH_INPUT']),
 
+    toSortBy(by, clickedElement) {
+
+      this.sortingData.by = by;
+      this.sortingData.direction = !this.sortingData.direction;
+
+      this.CHANGE_SORTING_DATA({by, direction: this.sortingData.direction});
+      
       // set/remove active class
-      let e = window.event,
-          button = e.target,
-          parentNode = button.parentNode,
-          allControls = parentNode.children;
+      let controls = this.$refs.controls.childNodes;
 
-      for(let i = 0; i < allControls.length; i++) {
+      for(let i = 0; i < controls.length; i++) {
 
-        if(allControls[i].classList.contains('active')) 
-          allControls[i].classList.remove('active')
-
+        if(controls[i].classList.contains('active')) 
+          controls[i].classList.remove('active')
+        
       }
 
-      button.classList.add('active');
+      clickedElement.classList.add('active')
     },
     getFullNameChars(item) {
       let a = item.name.charAt(0).toUpperCase(),

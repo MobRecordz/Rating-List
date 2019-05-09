@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 
 // mutations
 const UPDATE_USERS_LIST = 'UPDATE_USERS_LIST',
-      CHANGE_STATE_STATUS = 'CHANGE_STATE_STATUS';
+      CHANGE_STATE_STATUS = 'CHANGE_STATE_STATUS',
+      CHANGE_SORTING_DATA = 'CHANGE_SORTING_DATA',
+      CHANGE_SEARCH_INPUT = 'CHANGE_SEARCH_INPUT';
 
 // fake response from the server
 import users from './users.json';
@@ -21,7 +23,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     status: '',
-    usersList: []
+    usersList: [],
+
+    sortingData: {
+      by: '',
+      direction: false, // true - up, false - down
+    },
+    searchInput: '',
   },
   mutations: {
     [UPDATE_USERS_LIST] (state, data) {
@@ -32,6 +40,13 @@ export default new Vuex.Store({
     [CHANGE_STATE_STATUS] (state, data) {
       if(typeof data === 'string')
         state.status = data;
+    },
+    [CHANGE_SORTING_DATA] (state, data) {
+      state.sortingData.by = data.by;
+      state.sortingData.direction = data.direction;
+    },
+    [CHANGE_SEARCH_INPUT](state, data) {
+      state.searchInput = data;
     }
   },
   actions: {
@@ -53,16 +68,41 @@ export default new Vuex.Store({
         return b.rating - a.rating
       });
 
+      // Добавление поля PLACE к каждому элементу
       parsedArr.forEach((item, index) => {
         item.place = ++index;
       });
 
       commit(UPDATE_USERS_LIST, parsedArr);
       
-    }
+    },
+
   },
   getters: {
+    getStatus: state => state.status,
     getUsersList: state => state.usersList,
-    getStatus: state => state.status
+
+    getSearchOutput: (state, getters) => {
+      if(state.searchInput.length > 0)
+        return getters.getUsersList.filter((item) => {
+          let fullName = item.name + item.secondName,
+              search = state.searchInput.toLowerCase();
+
+          return fullName.toLowerCase().includes(search);
+        })
+
+      return getters.getUsersList
+    },
+    getSortedArray: (state, getters) => {
+      let direction = state.sortingData.direction,
+          by = state.sortingData.by;
+
+      return getters.getSearchOutput.slice().sort((a, b) => {
+        if(direction) 
+          return a[by] - b[by]
+        
+        return b[by] - a[by]
+      })
+    }
   }
 })

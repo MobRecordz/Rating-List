@@ -4,8 +4,7 @@
       
       <rating-list 
       v-if='getStatus === "default"'
-      title='Рейтинг участников'
-      :array='getUsersList'>
+      title='Рейтинг участников'>
       </rating-list>
 
 
@@ -31,6 +30,7 @@
 
 <script>
 import ratingList from './components/rating-list.vue'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'app',
@@ -39,12 +39,7 @@ export default {
   },
   
   computed: {
-    getUsersList() {
-      return this.$store.getters.getUsersList
-    },
-    getStatus() {
-      return this.$store.getters.getStatus
-    }
+    ...mapGetters(['getStatus']),
   },
   filters: {
     upperCase(value) {
